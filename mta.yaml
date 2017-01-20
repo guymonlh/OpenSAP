@@ -1,0 +1,76 @@
+_schema-version: '2.0'
+ID: OpenSAP
+version: 0.0.1
+modules:
+ - name: web
+   type: javascript.nodejs
+   requires:
+    - name: openSAP-Lori-uaa
+    - name: core-js-service
+      group: destinations
+      properties:
+         name: core-backend
+         url: ~{url}
+         forwardAuthToken: true
+ - name: core-db
+   type: com.sap.xs.hdi
+   requires:
+    - name: hdi-container
+      properties:
+         TARGET_CONTAINER: ~{hdi-container-name}
+    - name: CrossSchemaService
+      group: SERVICE_REPLACEMENTS
+      properties:
+         key: hdi-nfl-service
+         service: ~{nfl-service-name}
+    - name: CrossSchemaFlightService
+      group: SERVICE_REPLACEMENTS
+      properties:
+         key: hdi-sflight-service
+         service: ~{sflight-service-name}
+    - name: user-container
+      group: SERVICE_REPLACEMENTS
+      properties:
+         key: hdi-user-service
+         service: ~{user-container-name}
+ - name: user-db
+   type: com.sap.xs.hdi
+   requires:
+    - name: user-container
+      properties:
+         TARGET_CONTAINER: ~{user-container-name}
+ - name: core-js
+   type: javascript.nodejs
+   provides:
+    - name: core-js-service
+      properties:
+         url: ${default-url}
+   requires:
+    - name: openSAP-Lori-uaa
+    - name: hdi-container
+    - name: core-db
+resources:
+ - name: openSAP-Lori-uaa
+   type: com.sap.xs.uaa
+   parameters:
+      config_path: ./xs-security.json
+ - name: hdi-container
+   type: com.sap.xs.hdi-container
+   properties:
+      hdi-container-name: ${service-name}
+ - name: CrossSchemaService
+   type: org.cloudfoundry.existing-service
+   properties:
+      nfl-service-name: ${service-name}
+   parameters:
+      service-name: CROSS_SCHEMA_NFL
+ - name: CrossSchemaFlightService
+   type: org.cloudfoundry.existing-service
+   properties:
+      sflight-service-name: ${service-name}
+   parameters:
+      service-name: CROSS_SCHEMA_SFLIGHT
+ - name: user-container
+   type: com.sap.xs.hdi-container
+   properties:
+      user-container-name: ${service-name}

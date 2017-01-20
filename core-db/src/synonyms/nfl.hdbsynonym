@@ -1,0 +1,20 @@
+{
+  "DIM_TEAM": {
+    "target": {
+      "object": "DIM_TEAM",
+      "schema": "NFL"
+    }
+  },
+  "TRANS_WEEK": {
+    "target": {
+      "object": "TRANS_WEEK",
+      "schema": "NFL"
+    }
+  },
+  "MyView": {
+    "target": {
+      "object": "PurchaseOrder.ItemView",
+      "schema": "1NYGWLAH5KQTGEYH_OPENSAP_HDI_CONTAINER"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+using DIM_TEAM as TEAM;
+
+context MYNFL {
+
+   define view AllTeamsView as select from TEAM {
+		TEAM_CITY,
+		TEAM_STATE
+	};
+
+	define view TeamView as select from TEAM {
+		TEAM_CITY as "City",
+		TEAM_STATE as "State"
+	} with structured privilege check;
+
+};

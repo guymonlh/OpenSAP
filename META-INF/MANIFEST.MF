@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+
+Name: web/buildresults.zip
+MTA-Module: web
+Content-Type: application/zip
+
+Name: core-js/buildresults.zip
+MTA-Module: core-js
+Content-Type: application/zip
+
+Name: user-db/buildresults.zip
+MTA-Module: user-db
+Content-Type: application/zip
+
+Name: core-db/buildresults.zip
+MTA-Module: core-db
+Content-Type: application/zip
+
